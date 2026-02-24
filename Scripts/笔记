@@ -1,0 +1,31 @@
+CPU launch kernel
+        │
+        ▼
+Grid
+        │
+        ▼
+Block 队列
+        │
+        ▼
+SM 抢 Block
+        │
+        ▼
+Block → 切成 Warps
+        │
+        ▼
+Warp Scheduler 轮询执行
+        │
+        ├─ ALU 指令 → CUDA Core
+        ├─ shared → SM memory
+        ├─ global → L2 → DRAM
+        │
+        ▼
+写回结果
+
+
+1、线程束分化是指同一线程束中不同线程执行不同指令
+解决方法：
+进行线程ID重映射
+2、延迟隐藏是指GPU的指令延迟呗其他线程束执行的计算隐藏
+解决方法：
+合理分配GPU资源，共享内存、寄存器、block数量、block中线程数量、SM数量
